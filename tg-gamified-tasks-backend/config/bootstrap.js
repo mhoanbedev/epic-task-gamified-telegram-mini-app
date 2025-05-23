@@ -52,8 +52,8 @@ module.exports.bootstrap = async function(cb) {
   console.log('⏳ [bootstrap.js] Chuẩn bị bắt đầu polling...');
   try {
 
-    await bot.telegram.deleteWebhook({ drop_pending_updates: true });
-    console.log('[bootstrap.js] Đã yêu cầu xóa webhook (nếu có).');
+    // await bot.telegram.deleteWebhook({ drop_pending_updates: true });
+    // console.log('[bootstrap.js] Đã yêu cầu xóa webhook (nếu có).');
 
 
     bot.startPolling(); 
