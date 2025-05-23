@@ -4,6 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const connectDB = require('./config/database');
+const bot = require('./config/telegramBot');
 
 const { bootstrap } = require('./config/bootstrap');
  
@@ -53,8 +54,8 @@ app.use('/api/v1/tasks', taskRoutes);
 app.use('/api/v1/leaderboard', leaderboardRoutes);
 app.use('/api/v1/badges', badgeRoutes);
 
-
-const PORT = process.env.PORT || 3000;
+app.use(bot.webhookCallback('/'));
+const PORT = process.env.PORT || 3001;
 
 
 const startApp = async () => {
