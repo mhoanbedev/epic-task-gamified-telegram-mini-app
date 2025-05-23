@@ -26,6 +26,13 @@
 *   **Xử lý CORS:** cors
 *   **(Công cụ phát triển):** Nodemon
 
+##  API Server Trực Tuyến
+
+Backend của ứng dụng này hiện đang được triển khai và hoạt động tại:
+
+**`https://epic-task-gamified-telegram-mini-app.onrender.com`** 
+
+
 ##  Cài đặt và Chạy dự án (Hướng dẫn cho Local Development)
 
 1.  **Clone repository:**
@@ -44,7 +51,7 @@
         PORT=1338
         MONGO_URI=mongodb://localhost:27017/telegramgame_new  # MongoDB sẽ tự tạo database 'telegramgame_new' nếu chưa có.
         SESSION_SECRET=your_actual_session_secret_here # <--- QUAN TRỌNG: Thay thế bằng secret của bạn
-        REDIS_URL=redis://172.25.247.240:6379/0  
+        REDIS_URL=redis://172.25.247.240:6379/0 (nếu Redis chạy local)
         TELEGRAM_BOT_TOKEN=your_actual_telegram_bot_token_here  # QUAN TRỌNG: Thay thế bằng token của bạn
         MINI_APP_URL= https://google.com  # (Hiện tại chưa có giao diện của Frontend, dùng URL placeholder)
         ```
@@ -55,9 +62,20 @@
     npm run dev
     ```
     Server sẽ chạy trên cổng được định nghĩa trong `PORT` (ví dụ: `http://localhost:1338`).
+    
+##  Triển khai (Deployment)
 
+Ứng dụng backend này đã được triển khai trên nền tảng **Render**, kết hợp với các dịch vụ đám mây khác để tối ưu hóa hoạt động:
+
+*   **Nền tảng Hosting Backend:** Render (Free Tier)
+*   **API Base URL:** `https://epic-task-gamified-telegram-mini-app.onrender.com` 
+*   **Cơ sở dữ liệu chính:** MongoDB Atlas (M0 Free Tier)
+*   **Dịch vụ Redis (Cho Leaderboard & Session tiềm năng):** Upstash Redis (Free Tier)
+    *   *URL kết nối Redis được cấu hình qua biến môi trường `REDIS_URL`.*
+*   **Phiên bản Node.js trên Server (Render):** `20.19.0`
+  
 ##  API Endpoints (Ví dụ một số API chính)
-
+Sử dụng Base URL sau để kiểm tra: `https://epic-task-gamified-telegram-mini-app.onrender.com`
 *   `POST /api/v1/auth/telegram`: Xác thực/Đăng ký người dùng.
 *   `GET /api/v1/users/me`: Lấy thông tin profile người dùng hiện tại.
 *   `POST /api/v1/tasks`: Tạo nhiệm vụ mới.
@@ -65,7 +83,7 @@
 *   `POST /api/v1/tasks/:id/complete`: Đánh dấu hoàn thành nhiệm vụ.
 *   `GET /api/v1/leaderboard`: Lấy bảng xếp hạng.
 *   `GET /api/v1/badges`: Lấy danh sách các loại huy hiệu.
-*   
+  
 ### Chi tiết một số API quan trọng
 #### 1. Xác thực / Đăng ký Người dùng
 
