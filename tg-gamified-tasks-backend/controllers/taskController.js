@@ -1,6 +1,8 @@
 const Task = require('../models/Task');
 const GamificationService = require('../services/gamificationService'); 
 
+const MAX_TASKS_PER_DAY = 5
+
 const createTask = async (req, res, next) => {
     console.log('\n--- [taskController] Running createTask ---');
     console.log('[taskController] Request Body:', req.body);
@@ -10,6 +12,20 @@ const createTask = async (req, res, next) => {
     const ownerId = req.user.id; 
 
     try {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));  
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));  
+
+        const tasksCreatedToday = await Task.countDocuments({
+            owner: ownerId,
+            createdAt: { 
+                $gte: startOfDay,
+                $lte: endOfDay
+            }
+        });
+
+        console.log(`[taskController] User ${ownerId} đã tạo ${tasksCreatedToday} tasks hôm nay.`);
+
         if (!title) {
             return res.status(400).json({ message: 'Task title is required.' });
         }
@@ -19,7 +35,7 @@ const createTask = async (req, res, next) => {
             title,
             description,
             deadline,  
-            xpReward,  
+            xpReward: xpReward,  
         });
 
         await newTask.save();
@@ -27,6 +43,10 @@ const createTask = async (req, res, next) => {
         res.status(201).json(newTask);
 
     } catch (error) {
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(val => val.message);
+            return res.status(400).json({ message: messages.join(', ') });
+        }
         console.error('[taskController] Error creating task:', error);
         next(error);  
     }

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const MAX_XP_PER_TASK = 50;
+
 const taskSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,  
@@ -21,6 +23,7 @@ const taskSchema = new Schema({
     type: Number,
     default: 10,  
     min: 0,  
+    max: [MAX_XP_PER_TASK, `XP thưởng không được vượt quá ${MAX_XP_PER_TASK}`]
   },
   deadline: {
     type: Date,  
