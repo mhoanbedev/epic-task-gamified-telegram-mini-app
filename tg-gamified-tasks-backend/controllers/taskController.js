@@ -25,6 +25,9 @@ const createTask = async (req, res, next) => {
         });
 
         console.log(`[taskController] User ${ownerId} đã tạo ${tasksCreatedToday} tasks hôm nay.`);
+        if (tasksCreatedToday >= MAX_TASKS_PER_DAY) {
+            return res.status(403).json({ message: `Bạn đã tạo tối đa ${MAX_TASKS_PER_DAY} nhiệm vụ trong ngày hôm nay.` });
+        }
 
         if (!title) {
             return res.status(400).json({ message: 'Task title is required.' });
