@@ -11,7 +11,28 @@ const { bootstrap } = require('./config/bootstrap');
 connectDB();  
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  'https://epic-task-frontend.vercel.app',  
+  'http://localhost:5173',
+
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,  
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],  
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-CSRF-Token'],  
+  optionsSuccessStatus: 200  
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 
