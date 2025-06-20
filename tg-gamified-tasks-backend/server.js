@@ -11,6 +11,7 @@ const { bootstrap } = require('./config/bootstrap');
 connectDB();  
 
 const app = express();
+app.set('trust proxy', 1);
 
 const allowedOrigins = [
   'https://epic-task-frontend.vercel.app',  
