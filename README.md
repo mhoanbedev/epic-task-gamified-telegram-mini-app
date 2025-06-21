@@ -32,6 +32,13 @@ Backend của ứng dụng này hiện đang được triển khai và hoạt đ
 
 **`https://epic-task-gamified-telegram-mini-app.onrender.com`** 
 
+##  Trải nghiệm Ứng dụng
+
+Bạn có thể trải nghiệm trực tiếp "Epic Task Gamified" Mini App thông qua Telegram Bot của chúng tôi:
+
+*   **Link Bot Telegram:** [https://t.me/minhhoan_bot]
+*   **Hướng dẫn:** Mở link trên, nhấn "Start" hoặc gửi lệnh `/start` cho Bot để nhận nút bấm mở Mini App.
+
 
 ##  Cài đặt và Chạy dự án (Hướng dẫn cho Local Development)
 
@@ -51,9 +58,9 @@ Backend của ứng dụng này hiện đang được triển khai và hoạt đ
         PORT=1338
         MONGO_URI=mongodb://localhost:27017/telegramgame_new  # MongoDB sẽ tự tạo database 'telegramgame_new' nếu chưa có.
         SESSION_SECRET=your_actual_session_secret_here # <--- QUAN TRỌNG: Thay thế bằng secret của bạn
-        REDIS_URL=redis://172.25.247.240:6379/0 (nếu Redis chạy local)
+        REDIS_URL=redis://localhost:6379/0  # Hoặc địa chỉ IP của Redis server nếu không chạy trên localhost
         TELEGRAM_BOT_TOKEN=your_actual_telegram_bot_token_here  # QUAN TRỌNG: Thay thế bằng token của bạn
-        MINI_APP_URL= https://google.com  # (Hiện tại chưa có giao diện của Frontend, dùng URL placeholder)
+        MINI_APP_URL= https://epic-task-frontend.vercel.app/
         ```
      *   **QUAN TRỌNG:** Đảm bảo bạn đã thay thế các giá trị placeholder `your_actual_session_secret_here` và `your_actual_telegram_bot_token_here` bằng các giá trị bí mật thực tế của bạn. **Không bao giờ commit file `.env` thật lên GitHub.**
 4.  **Đảm bảo MongoDB và Redis Server đang chạy** trên máy của bạn hoặc có thể truy cập được.
@@ -94,7 +101,7 @@ Sử dụng Base URL sau để kiểm tra: `https://epic-task-gamified-telegram-
     ```json
     {
       "user": {
-        "id": "Number (Bắt buộc) - ID người dùng từ Telegram",
+        "id": "String (Bắt buộc) - ID người dùng từ Telegram",
         "username": "String (Tùy chọn) - Username Telegram",
         "first_name": "String (Tùy chọn)",
         "last_name": "String (Tùy chọn)",
@@ -147,7 +154,6 @@ Sử dụng Base URL sau để kiểm tra: `https://epic-task-gamified-telegram-
 *   **Response Lỗi:**
     *   `400 Bad Request`: Nếu `title` bị thiếu hoặc dữ liệu không hợp lệ.
     *   `401 Unauthorized`: Nếu người dùng chưa đăng nhập.
-
 
 
 ##  Hướng phát triển tiếp theo
