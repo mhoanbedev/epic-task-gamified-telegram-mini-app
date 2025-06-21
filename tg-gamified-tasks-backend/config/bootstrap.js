@@ -27,11 +27,11 @@ module.exports.bootstrap = async function(cb) {
     const firstName = ctx.from.first_name || 'bạn';
     const userId = ctx.from.id;
     const username = ctx.from.username || `(id: ${userId})`;
-    const welcomeText = `Chào ${firstName}! Chào mừng bạn đến với Gamified Task Tracker.\n\nHãy bắt đầu quản lý nhiệm vụ và chinh phục thử thách nào!`;
+    const welcomeText = `Chào ${firstName}! Chào mừng bạn đến với Epic Task.\n\nHãy bắt đầu quản lý nhiệm vụ và chinh phục thử thách nào!`;
     console.log(`[bootstrap.js] Lệnh /start nhận từ User: ${userId} (${username})`);
     const keyboard = Markup.inlineKeyboard([
       MINI_APP_URL
-        ? Markup.button.webApp('Mở Task Tracker', MINI_APP_URL)
+        ? Markup.button.webApp('Bắt đầu', MINI_APP_URL)
         : Markup.button.callback('App chưa sẵn sàng', 'app_not_ready')
     ]);
     try {
